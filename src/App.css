@@ -1,0 +1,32 @@
+#root {
+  /* max-width: 1280px; */
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+/* en css los indices comienzan con el 1 */
+/*agregamos color rojo a los hijos pares (2n) de la etiqueta tr, y estas etiquetas tr a su vez tienen que ser hijas de la etiqueta table con la clase table-colors*/
+
+.table-colors tr:nth-child(2n) {
+  background: red;
+}
+/*lo mismo que lo anterior pero con distinto color*/
+.table-colors tr:nth-child(2n + 1) {
+  background: blue;
+}
+
+header {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 48px;
+  justify-content: center;
+  align-items: center;
+}
+
+.pointer {
+  cursor: crosshair;
+}
+
+
