@@ -17,7 +17,7 @@ const fetchUsers = async (currentPage: number) => {
           throw new Error("Error en la petición")
       }
 
-      const data = await response.json()        
+      const data = await response.json()
 
       //valida si es undifined o null (el !data?.results)
       if(!data?.results || data.results.length === 0 || ! Array.isArray(data.results)){
@@ -29,8 +29,11 @@ const fetchUsers = async (currentPage: number) => {
 }
 
 function App() {
-
-  //const {isLoading, isError, data} = useQuery(["users"], async () => await fetchUsers(1))
+  //así es en la versión 5 para arriba de react-query para usar el useQuery
+  /* const {isLoading, isError, data} = useQuery({
+    queryKey: ['users'],
+    queryFn: () => fetchUsers(1)
+  }) */
 
   const [users, setUser] = useState<User[]>([])
 
@@ -50,7 +53,6 @@ function App() {
   //Segunda clase, react Query y más
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
-
   const [currentPage, setCurrentPage] = useState(1)
   
 
