@@ -12,9 +12,9 @@ const fetchUsers = async (currentPage: number) => {
 
       console.log(response.ok, response.status, response.statusText)      
 
-        //"así se manaje el error en la respuesta, el try catch es para manejar capturar errores en la ejecución del código, y el if(!response.ok) es para manejar errores en la respuesta de la API. Si la respuesta no es ok, se lanza un error y se captura en el catch."
+        //"así se manaje el error en la respuesta, el try catch es para manejar/capturar errores en la ejecución del código, y el if(!response.ok) es para manejar errores en la respuesta de la API. Si la respuesta no es ok, se lanza un error y se captura en el catch."
       if(!response.ok){          
-          throw new Error("Error en la petición")
+        throw new Error("Error en la petición")
       }
 
       const data = await response.json()
@@ -29,13 +29,13 @@ const fetchUsers = async (currentPage: number) => {
 }
 
 function App() {
-  
+  // data: user = [] es para que si no hay usuarios, no rompa la aplicación, :user es para cambiar el nombre y que en lugar de llamarse data se llame user la variable.
   /* const {isLoading, isError, data: user = []} = useQuery<User[]>({
     queryKey: ['user'],
     queryFn: () => fetchUsers(1)
   }) */
 
-  const [users, setUser] = useState<User[]>([])
+  const [users, setUsers] = useState<User[]>([])
 
   const [showColorRows, setColorRows] = useState(false)
 
@@ -45,7 +45,7 @@ function App() {
 
   //? es mejor usar un useRef para guardar el estado original de los usuarios y no usar useState, ya que useState es para guardar el estado actual y no el original.
   //* const [originalUsers, setOriginalUsers] = useState<User[]>([])// esto estaría mal, es innecesario
-  //! useRef ->> es para guardar un valor que queremos que se comparta entre renderizados, pero que al cambiar, no vuelva a renderizar el componente. Y cuando queremos guardar valores que se preserven entre renderizados (esto también es una caracteristica del useState, pero este si cambia su valor se vuelve a renderizar el componente).
+  //! useRef ->> es para guardar un valor que queremos que se comparta entre renderizados, pero que al cambiar, no vuelva a renderizar el componente. Y para cuando queremos guardar valores que se preserven entre renderizados (esto también es una caracteristica del useState, pero este si cambia su valor se vuelve a renderizar el componente).
   const originalUsers = useRef<User[]>([]) 
 
   const [filteredCountry, setFilteredCountry] = useState<string | null>(null)
@@ -62,7 +62,8 @@ function App() {
   }
 
   const toggleSortByCountry = () => {
-    const newSortingValue = sorting === SortBy.NONE ? SortBy.COUNTRY : SortBy.NONE
+    //const newSortingValue = sorting === SortBy.NONE ? SortBy.COUNTRY : SortBy.NONE
+    const newSortingValue = sorting === SortBy.COUNTRY ? SortBy.NONE : SortBy.COUNTRY
     setSorting(newSortingValue)
     //setSortByCountry(prevState => !prevState) 
   }
@@ -73,12 +74,13 @@ function App() {
 
   const handleDelete = (email: string) => {
     const filteredUsers = users.filter( (user) => user.email !== email)
-    setUser(filteredUsers)    
+    setUsers(filteredUsers)    
   }
 
   const handleReset = () => {
     //? setUser(originalUsers) Usar useState para resetear el estado no es necesario.
-    setUser(originalUsers.current)    
+    console.log("Resetear estado")
+    setUsers(originalUsers.current)    
   }
 
   const useMockData = () => {
@@ -99,7 +101,7 @@ function App() {
         return
       }
 
-      setUser(prevUsers => prevUsers.concat(pageUsers))
+      setUsers(prevUsers => prevUsers.concat(pageUsers))
       originalUsers.current = mockData.results
 
     }catch (error){
@@ -136,8 +138,8 @@ function App() {
         
         //setUser(data.results) Quitamos esto para la paginación
         //! .concat() es más "tolerante": funciona si le das un solo elemento o un array.
-        //! [...spread] es más "exigente": necesita que todo lo que expandas sea iterable (un array, string, etc.).
-        setUser(prevUsers => {
+        //! [...spread] ( prevState => [...prevState, ...data.results] ) es más "exigente": necesita que todo lo que expandas sea iterable (un array, string, etc.).
+        setUsers(prevUsers => {
           const newUsers = prevUsers.concat(results)
           originalUsers.current = newUsers
           return newUsers
