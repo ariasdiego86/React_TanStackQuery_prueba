@@ -29,9 +29,9 @@ const fetchUsers = async (currentPage: number) => {
 }
 
 function App() {
-  //así es en la versión 5 para arriba de react-query para usar el useQuery
-  /* const {isLoading, isError, data} = useQuery({
-    queryKey: ['users'],
+  
+  /* const {isLoading, isError, data: user = []} = useQuery<User[]>({
+    queryKey: ['user'],
     queryFn: () => fetchUsers(1)
   }) */
 
