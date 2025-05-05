@@ -35,6 +35,7 @@ function App() {
     queryFn: () => fetchUsers(1)
   }) */
 
+  //Con react-query se quitará el useEffect, el users y el useState de loading y error, ya que react-query maneja el loading y el error por nosotros.
   const [users, setUsers] = useState<User[]>([])
 
   const [showColorRows, setColorRows] = useState(false)
@@ -50,7 +51,7 @@ function App() {
 
   const [filteredCountry, setFilteredCountry] = useState<string | null>(null)
 
-  //Segunda clase, react Query y más
+  //Para paginación y controlar el loading y el error, y el currentPage
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
