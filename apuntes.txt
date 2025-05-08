@@ -14,3 +14,5 @@ Los pasos a seguir:
  Implement a feature that allows the user to filter the data by country.
  Avoid sorting users again the data when the user is changing filter by country.
  Sort by clicking on the column header
+
+ instalar las devTools con: pnpm install @tanstack/react-query-devtools -E (el parámetro E para versión "exacta")
