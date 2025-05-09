@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import './App.css'
-import { SortBy, User } from './types'
+import { SortBy, type User } from './types'
 import { UserList } from './components/UserList'
 
 import { useUsers } from './hooks/useUsers'
@@ -46,7 +46,7 @@ function App() {
 
   const handleDelete = (email: string) => {
     queryClient.setQueryData<{
-      pages: { users: User[]; nextCursor?: number} []
+      pages: { users: User[]; nextCursor?: number} [] //Le decimos que es un array de objetos, y cada objeto tiene un array de usuarios y un nextCursor que es opcional. Esto es porque la paginación infinita devuelve un array de objetos, y cada objeto tiene un array de usuarios y un nextCursor que es nulleable.
       pageParams: number[]
     }> (
       ["users"],

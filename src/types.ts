@@ -6,6 +6,18 @@
     }
 } */
 
+//* Puedo utilizar estos tipo de dato para la paginación, si quiero. Este primer tipo UserPage lo devuelve la API. Cada "página" individual (UserPage) sí viene de la API (users: User[], nextCursor).
+export interface UserPage{
+    users: User[];
+    nextCursor?: number;
+}
+
+//* Este segundo tipo es el que utilizo para la paginación infinita (por reactQuery). El envoltorio con pages y pageParams es propio de React Query para controlar la paginación.
+export interface InfiniteUserData {
+    pages: UserPage[];
+    pageParams: number[];
+}
+
 export enum SortBy {
     NONE = 'none',
     NAME = 'name',
